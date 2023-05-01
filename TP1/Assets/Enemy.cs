@@ -10,15 +10,18 @@ public class Enemy : MonoBehaviour
 
     public float speed = 3f;
     public float pushForce = 0.5f;
+    public float pushForce2 = 0.1f;
     public float pushDuration = 0.5f;
+    public float pushDuration2 = 0.2f;
     public bool isPushing = false;
 
-   
-    public GameObject player;
+
+    private Transform player;
     private Rigidbody2D rb;
     private Animator animator;
     void Start()
     {
+        player = GameObject.Find("Player").transform;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -36,26 +39,27 @@ public class Enemy : MonoBehaviour
     {
         if (isPushing == false)
         {
-            Vector2 direction = player.transform.position - transform.position;
+            Vector2 direction = player.position - transform.position;
             transform.Translate(direction.normalized * speed * Time.deltaTime);
-           
-        }
 
-      
-        
-    }
+        }
+   }
 
     void LookAt()
     {
-        if (transform.position.x < player.transform.position.x)
+        Vector2 direction = player.position - transform.position;
+        direction.y = 0;
+
+        if (direction.x > 0)
         {
             animator.SetBool("moveLeft", false);
         }
-
         else
         {
             animator.SetBool("moveLeft", true);
         }
+
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,7 +71,16 @@ public class Enemy : MonoBehaviour
             {
                 Vector2 pushDirection = transform.position - collision.gameObject.transform.position;
                 StartCoroutine(AddForceCoroutine(rb, pushDirection.normalized)); // 밀어내는 코루틴 시작
-            } 
+            }
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            isPushing = true;
+            if (pushDuration > 0f)
+            {
+                Vector2 pushDirection = transform.position - collision.gameObject.transform.position;
+                StartCoroutine(AddForceCoroutine2(rb, pushDirection.normalized)); // 밀어내는 코루틴 시작
+            }
         }
     }
 
@@ -76,6 +89,15 @@ public class Enemy : MonoBehaviour
         isPushing = true;
         enemyRb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse); // 적을 밀어냅니다.
         yield return new WaitForSeconds(pushDuration); // 일정 시간 대기
+        enemyRb.velocity = Vector2.zero; // 적의 속도 초기화
+        isPushing = false;
+    }
+
+    IEnumerator AddForceCoroutine2(Rigidbody2D enemyRb, Vector2 pushDirection)
+    {
+        isPushing = true;
+        enemyRb.AddForce(pushDirection * pushForce2, ForceMode2D.Impulse); // 적을 밀어냅니다.
+        yield return new WaitForSeconds(pushDuration2); // 일정 시간 대기
         enemyRb.velocity = Vector2.zero; // 적의 속도 초기화
         isPushing = false;
     }

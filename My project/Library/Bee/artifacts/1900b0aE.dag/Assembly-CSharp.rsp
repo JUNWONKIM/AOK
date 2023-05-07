@@ -371,6 +371,7 @@
 "Assets/Bullet_P.cs"
 "Assets/Enemy.cs"
 "Assets/Enemy2.cs"
+"Assets/EnemyATK1.cs"
 "Assets/LifeText.cs"
 "Assets/PlayerMove.cs"
 "Assets/Shooter.cs"

@@ -20,11 +20,15 @@ public class Enemy : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private Animator animator;
+
+    private int hp;
     void Start()
     {
         player = GameObject.Find("Player").transform;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        hp = 3;
     }
 
     // Update is called once per frame
@@ -85,6 +89,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet_P"))
+        {
+            hp -= 1;
+            if (hp == 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+    }
     IEnumerator AddForceCoroutine(Rigidbody2D enemyRb, Vector2 pushDirection)
     {
         isPushing = true;

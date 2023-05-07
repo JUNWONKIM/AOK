@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Bullet_P
   - Bullet_E
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 766850593
+    locked: 0
+  - name: Character
+    uniqueID: 3230382111
+    locked: 0
+  - name: Effect
+    uniqueID: 2758809247
+    locked: 0
+  - name: fil
+    uniqueID: 3008980037
     locked: 0

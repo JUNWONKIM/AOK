@@ -13,7 +13,9 @@ public class PlayerMove : MonoBehaviour
     private Camera mainCamera;
     private Vector3 mousePosition;
     private LifeText lifetext;
-   
+
+    public float invincibleTime = 0.5f; // 公利 矫埃
+    private bool invincible = false; // 公利 惑怕 咯何
     // Start is called before the first frame update
     void Start()
     {
@@ -51,26 +53,33 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            animator.SetBool("isFrontIdle", false);
-            animator.SetBool("isSideIdle", false);
-            animator.SetBool("isBackIdle", false);
+            animator.SetBool("FrontIdle", false);
+            animator.SetBool("LeftIdle", false);
+            animator.SetBool("RightIdle", false);
+            animator.SetBool("BackIdle", false);
 
             if (look.x > 0 && look.y > 0)
             {
                 if (look.x > look.y)
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", true);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", true);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
 
-                  
+
                 }
 
                 else
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", false);
-                    animator.SetBool("isMoveBack", true);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", true);
                 }
             }
 
@@ -78,16 +87,22 @@ public class PlayerMove : MonoBehaviour
             {
                 if (look.x > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", true);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", true);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isMoveFront", true);
-                    animator.SetBool("isMoveSide", false);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", true);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
                 }
             }
 
@@ -95,16 +110,22 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Mathf.Abs(look.x) > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", true);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", true);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isMoveFront", true);
-                    animator.SetBool("isMoveSide", false);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", true);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
                 }
             }
 
@@ -112,42 +133,53 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Mathf.Abs(look.x) > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", true);
-                    animator.SetBool("isMoveBack", false);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", true);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", false);
+                    animator.SetBool("RightBackMove", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isMoveFront", false);
-                    animator.SetBool("isMoveSide", false);
-                    animator.SetBool("isMoveBack", true);
+                    animator.SetBool("LeftFrontMove", false);
+                    animator.SetBool("RightFrontMove", false);
+                    animator.SetBool("LeftMove", false);
+                    animator.SetBool("RightMove", false);
+                    animator.SetBool("LeftBackMove", true);
+                    animator.SetBool("RightBackMove", false);
                 }
             }
         }
 
         else
         {
-            animator.SetBool("isMoveFront", false);
-            animator.SetBool("isMoveSide", false);
-            animator.SetBool("isMoveBack", false);
+            animator.SetBool("LeftFrontMove", false);
+            animator.SetBool("RightFrontMove", false);
+            animator.SetBool("LeftMove", false);
+            animator.SetBool("RightMove", false);
+            animator.SetBool("LeftBackMove", false);
+            animator.SetBool("RightBackMove", false);
 
             if (look.x > 0 && look.y > 0)
             {
                 if (look.x > look.y)
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", true);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", true);
+                    animator.SetBool("BackIdle", false);
 
 
                 }
 
                 else
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", false);
-                    animator.SetBool("isBackIdle", true);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", true);
                 }
             }
 
@@ -155,16 +187,18 @@ public class PlayerMove : MonoBehaviour
             {
                 if (look.x > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", true);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", true);
+                    animator.SetBool("BackIdle", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isFrontIdle", true);
-                    animator.SetBool("isSideIdle", false);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", true);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", false);
                 }
             }
 
@@ -172,16 +206,18 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Mathf.Abs(look.x) > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", true);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", true);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isFrontIdle", true);
-                    animator.SetBool("isSideIdle", false);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", true);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", false);
                 }
             }
 
@@ -189,16 +225,18 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Mathf.Abs(look.x) > Mathf.Abs(look.y))
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", true);
-                    animator.SetBool("isBackIdle", false);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", true);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", false);
                 }
 
                 else
                 {
-                    animator.SetBool("isFrontIdle", false);
-                    animator.SetBool("isSideIdle", false);
-                    animator.SetBool("isBackIdle", true);
+                    animator.SetBool("FrontIdle", false);
+                    animator.SetBool("LeftIdle", false);
+                    animator.SetBool("RightIdle", false);
+                    animator.SetBool("BackIdle", true);
                 }
             }
 
@@ -241,15 +279,34 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Bullet_E"))
+        if (!invincible && other.CompareTag("Bullet_E"))
         {
             lifetext.Dead();
-
+            invincible = true;
+            Invoke("ResetInvincible", invincibleTime);
             if (lifetext.life == 0)
             {
                 Destroy(gameObject);
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (!invincible && other.gameObject.CompareTag("Enemy"))
+        {
+            lifetext.Dead();
+            invincible = true;
+            Invoke("ResetInvincible", invincibleTime);
+            if (lifetext.life == 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+    void ResetInvincible()
+    {
+        invincible = false;
     }
 }
 

@@ -376,6 +376,7 @@
 "Assets/PlayerMove.cs"
 "Assets/Shooter.cs"
 "Assets/SpawnEnemy.cs"
+"Assets/Tonado.cs"
 -langversion:9.0
 
 /deterministic

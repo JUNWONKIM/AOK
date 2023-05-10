@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3817758589021423423}
   - component: {fileID: 1568298422221826923}
   - component: {fileID: 754353729016378352}
-  - component: {fileID: 8474972169031241724}
+  - component: {fileID: 1121233810039956402}
   m_Layer: 0
   m_Name: Enemy_Bullet
   m_TagString: Bullet_E
@@ -124,7 +124,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 0.99999994}
   m_Direction: 0
---- !u!114 &8474972169031241724
+--- !u!114 &1121233810039956402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
